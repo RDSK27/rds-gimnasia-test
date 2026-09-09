@@ -110,13 +110,13 @@ if('serviceWorker' in navigator){
     text-shadow:0 1px 2px rgba(0,0,0,0.7);
   }
   .segment button:last-child{border-right:0;}
-  .segment button.sel{background:var(--rojo);color:#fff;text-shadow:none;}
+  .segment button.sel{background:var(--rojo);color:var(--fucsia);}
   #seg2,#seg3{margin-top:0;}
 
   /* ---------- Acciones (mas pequenas y estrechas, como en la referencia) ---------- */
   .actions{display:flex;flex-direction:column;align-items:center;gap:6px;gap:clamp(4px,1svh,8px);margin-top:clamp(20px,4svh,40px);}
 
-  .btn-ranking { width:75%; padding:9px; background:#fff; color:#1E6FD9; border:2px solid #1E6FD9; font-size:0.78rem; font-weight:900; letter-spacing:0.18em; text-transform:uppercase; cursor:pointer; text-align:center; border-radius:6px; transition:transform 0.12s; margin-top:0; }
+  .btn-ranking { width:75%; padding:9px; background:#fff; color:var(--fucsia); border:2px solid #1E6FD9; font-size:0.78rem; font-weight:900; letter-spacing:0.18em; text-transform:uppercase; cursor:pointer; text-align:center; border-radius:6px; transition:transform 0.12s; margin-top:0; }
   .btn-ranking:active{transform:translateY(3px);}
 
   .home-btn-row{ display:flex; align-items:center; justify-content:center; gap:16px; margin-top:15px; }
@@ -187,9 +187,9 @@ if('serviceWorker' in navigator){
   .res-chart svg{width:100%;height:auto;display:block;}
   .save-row{display:flex;justify-content:center;padding:8px 16px 8px;}
   .save-row-inner{display:flex;align-items:stretch;justify-content:center;gap:8px;width:calc(60% + 92px);max-width:100%;}
-  .btn-save{flex:1;max-width:60%;padding:7px;background:var(--rojo);color:#fff;border:none;border-radius:4px;font-family:inherit;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;font-size:0.65rem;cursor:pointer;}
+  .btn-save{flex:1;max-width:60%;padding:7px;background:var(--rojo);color:var(--fucsia);text-shadow:0 1px 2px rgba(0,0,0,0.45);border:none;border-radius:4px;font-family:inherit;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;font-size:0.65rem;cursor:pointer;}
   .btn-save:disabled{background:#9A9A9A;}
-  .btn-rank2{flex:none;width:84px;padding:7px;background:#111;color:#fff;border:none;border-radius:4px;font-family:inherit;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;font-size:0.65rem;cursor:pointer;}
+  .btn-rank2{flex:none;width:84px;padding:7px;background:#111;color:var(--fucsia);border:none;border-radius:4px;font-family:inherit;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;font-size:0.65rem;cursor:pointer;}
   .seg-sm button{font-size:12px;padding:7px 4px;letter-spacing:1px;}
   .rank-screen-title { font-size:1.2rem; font-weight:900; letter-spacing:0.1em; text-transform:uppercase; color:#111; text-align:center; background:#fff; padding:9px 14px 7px; border-bottom:3px solid #1E6FD9; margin-bottom:10px; }
   .rank-tabs { display:flex; margin-bottom:0; margin-top:0; }
@@ -227,7 +227,7 @@ if('serviceWorker' in navigator){
   .res-ens b{font-size:22px;color:var(--rojo);}
   #btn-start-wrap { display:flex; align-items:center; justify-content:center; padding:4px; margin:5px auto 3px; border-radius:50%; background:conic-gradient(#ffffff,#9a9a9a,#e8e8e8,#5a5a5a,#ffffff,#8a8a8a,#dcdcdc,#666666,#ffffff); box-shadow:0 5px 12px rgba(0,0,0,0.6); transition:transform 0.08s, box-shadow 0.08s; }
   #btn-start-wrap:active { transform:translateY(3px); box-shadow:0 2px 6px rgba(0,0,0,0.6); }
-  #btn-start { width:70px; height:70px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #3E97F0 0%, #1E6FD9 45%, #123E86 100%); border:none; color:#fff; font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif; font-weight:900; font-size:0.6rem; letter-spacing:0.18em; text-transform:uppercase; cursor:pointer; position:relative; box-shadow:inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.5); transition:transform 0.08s; }
+  #btn-start { width:70px; height:70px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #3E97F0 0%, #1E6FD9 45%, #123E86 100%); border:none; color:var(--fucsia); text-shadow:0 1px 2px rgba(0,0,0,0.5); font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif; font-weight:900; font-size:0.6rem; letter-spacing:0.18em; text-transform:uppercase; cursor:pointer; position:relative; box-shadow:inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.5); transition:transform 0.08s; }
   #btn-start:active { box-shadow:inset 0 3px 7px rgba(0,0,0,0.6); }
   #user-name-bar { width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0 0 5px; box-sizing:border-box; gap:0; margin-top:31px; }
 
@@ -257,12 +257,12 @@ if('serviceWorker' in navigator){
   .g-ex-info{flex:1;min-width:0;}
   .g-ex-name{font-weight:900;font-size:0.9rem;color:#111;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .g-ex-meta{font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:#9A9A9A;font-weight:700;margin-top:3px;}
-  .g-ex-del{flex:none;width:34px;height:34px;border:none;border-radius:6px;background:#eee;color:#1E6FD9;font-size:1.1rem;font-weight:900;cursor:pointer;line-height:1;}
+  .g-ex-del{flex:none;width:34px;height:34px;border:none;border-radius:6px;background:#eee;color:var(--fucsia);font-size:1.1rem;font-weight:900;cursor:pointer;line-height:1;}
   .g-ex-empty{text-align:center;padding:22px 10px;font-size:0.66rem;letter-spacing:0.1em;color:#ccc;text-transform:uppercase;font-weight:800;}
-  .g-btn-primary{width:100%;padding:15px;background:var(--rojo);color:#fff;border:none;border-radius:6px;font-family:inherit;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;font-size:0.8rem;cursor:pointer;}
+  .g-btn-primary{width:100%;padding:15px;background:var(--rojo);color:var(--fucsia);text-shadow:0 1px 2px rgba(0,0,0,0.45);border:none;border-radius:6px;font-family:inherit;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;font-size:0.8rem;cursor:pointer;}
   .g-btn-primary:active{transform:translateY(2px);}
   .g-btn-primary:disabled{background:#c4c4c4;}
-  .g-btn-ghost{width:100%;padding:13px;background:#fff;color:#1E6FD9;border:2px solid #1E6FD9;border-radius:6px;font-family:inherit;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;font-size:0.74rem;cursor:pointer;}
+  .g-btn-ghost{width:100%;padding:13px;background:#fff;color:var(--fucsia);border:2px solid #1E6FD9;border-radius:6px;font-family:inherit;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;font-size:0.74rem;cursor:pointer;}
 
   /* Panel nuevo ejercicio */
   .g-field{display:flex;flex-direction:column;gap:6px;}
@@ -279,7 +279,10 @@ if('serviceWorker' in navigator){
   .g-tb-btn{flex:none;height:32px;padding:0 10px;border:1px solid #444;border-radius:5px;background:#222;color:var(--fucsia);font-family:inherit;font-weight:800;text-transform:uppercase;font-size:0.6rem;letter-spacing:0.06em;cursor:pointer;display:flex;align-items:center;justify-content:center;}
   .g-tb-btn:active{background:#1E6FD9;}
   .g-tb-btn:disabled{opacity:0.32;}
-  .g-tb-arrow{width:34px;padding:0;font-size:0.95rem;}
+  .g-tb-arrow{width:34px;padding:0;font-size:0.95rem;background:#1E6FD9;border-color:#1E6FD9;color:var(--fucsia);}
+  .g-clear-row{display:flex;justify-content:center;padding:9px 14px 3px;background:#fff;}
+  .g-clear-btn{padding:9px 32px;background:#111;color:var(--fucsia);border:none;border-radius:6px;font-family:inherit;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;font-size:0.68rem;cursor:pointer;}
+  .g-clear-btn:active{transform:translateY(1px);}
 
   /* Tapiz */
   .g-mat-wrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:12px;background:#fff;}
@@ -388,7 +391,7 @@ if('serviceWorker' in navigator){
       </select>
     </div>
   </div>
-    <div class="app-ver">v2</div>
+    <div class="app-ver">v3</div>
     </div>
 
   </main>
@@ -440,7 +443,6 @@ if('serviceWorker' in navigator){
       <div class="g-topbar">
         <button class="g-tb-btn g-tb-arrow" id="g-d-prev" aria-label="Anterior">&#9664;</button>
         <div class="g-mv">Mov. <b id="g-d-cur">1</b> / <span id="g-d-tot">5</span></div>
-        <button class="g-tb-btn" id="g-d-clear">Borrar</button>
         <button class="g-tb-btn g-tb-arrow" id="g-d-next" aria-label="Siguiente">&#9654;</button>
       </div>
       <div class="g-mat-wrap">
@@ -448,9 +450,12 @@ if('serviceWorker' in navigator){
           <canvas id="g-d-canvas"></canvas>
         </div>
       </div>
+      <div class="g-clear-row">
+        <button class="g-clear-btn" id="g-d-clear">Borrar trazo</button>
+      </div>
       <div class="results-actions">
         <button class="game-ctrl-btn" onclick="gimDrawExit()">&#8592; Inicio</button>
-        <button class="game-ctrl-btn" style="border-right:none;border-left:1px solid #333;background:#1E6FD9;color:#fff;" id="g-d-save">Guardar</button>
+        <button class="game-ctrl-btn" style="border-right:none;border-left:1px solid #333;background:#1E6FD9;color:var(--fucsia);text-shadow:0 1px 2px rgba(0,0,0,0.45);" id="g-d-save">Guardar</button>
       </div>
     </div>
 
@@ -559,7 +564,7 @@ if('serviceWorker' in navigator){
   <div style="display:flex; justify-content:center; padding:8px 16px 8px;">
     <div class="save-row-inner">
       <button id="btn-hide-repeated" style="flex:1; max-width:60%; padding:7px; font-size:0.65rem; font-weight:900; letter-spacing:0.1em; text-transform:uppercase; background:#111; color:#FF3DA6; border:none; cursor:pointer; border-radius:4px;" onclick="toggleHideRepeated()">Mostrar repetidos</button>
-      <button id="btnGuardarRank" style="display:none; flex:none; width:84px; align-items:center; justify-content:center; padding:7px; font-size:0.65rem; font-weight:900; letter-spacing:0.1em; text-transform:uppercase; background:var(--rojo); color:#fff; border:none; cursor:pointer; border-radius:4px;" aria-label="Guardar mi marca" title="Guardar mi marca">Guardar</button>
+      <button id="btnGuardarRank" style="display:none; flex:none; width:84px; align-items:center; justify-content:center; padding:7px; font-size:0.65rem; font-weight:900; letter-spacing:0.1em; text-transform:uppercase; background:var(--rojo); color:var(--fucsia); text-shadow:0 1px 2px rgba(0,0,0,0.45); border:none; cursor:pointer; border-radius:4px;" aria-label="Guardar mi marca" title="Guardar mi marca">Guardar</button>
     </div>
   </div>
   <div class="results-actions">
