@@ -388,7 +388,7 @@ if('serviceWorker' in navigator){
       </select>
     </div>
   </div>
-    <div class="app-ver">v1</div>
+    <div class="app-ver">v2</div>
     </div>
 
   </main>
@@ -1243,11 +1243,11 @@ function gimInkColor(){ return GIM.run ? '#152230' : '#1E6FD9'; }
 function gimDot(p){
   var c=GIM.ctx; if(!c) return;
   c.fillStyle=gimInkColor();
-  c.beginPath(); c.arc(p.x*GIM.cssW, p.y*GIM.cssH, 2.4, 0, 7); c.fill();
+  c.beginPath(); c.arc(p.x*GIM.cssW, p.y*GIM.cssH, 3, 0, 7); c.fill();
 }
 function gimSeg(a,b){
   var c=GIM.ctx; if(!c||!a) return;
-  c.strokeStyle=gimInkColor(); c.lineWidth=4;
+  c.strokeStyle=gimInkColor(); c.lineWidth=5.5;
   c.beginPath(); c.moveTo(a.x*GIM.cssW, a.y*GIM.cssH); c.lineTo(b.x*GIM.cssW, b.y*GIM.cssH); c.stroke();
 }
 function gimPaint(strokes,color,w){
@@ -1267,11 +1267,11 @@ function gimRedraw(){
   if(GIM.run){
     if(GIM.shadow){
       var m=GIM.run.ex.movements[GIM.run.idx];
-      if(m) gimPaint(m.strokes,'rgba(30,111,217,0.24)',6);
+      if(m) gimPaint(m.strokes,'rgba(30,111,217,0.24)',8);
     }
-    gimPaint(GIM.run.attempt[GIM.run.idx].strokes, '#152230', 4);
+    gimPaint(GIM.run.attempt[GIM.run.idx].strokes, '#152230', 5.5);
   } else if(GIM.ex){
-    gimPaint(GIM.ex.movements[GIM.mvIndex].strokes, '#1E6FD9', 4);
+    gimPaint(GIM.ex.movements[GIM.mvIndex].strokes, '#1E6FD9', 5.5);
   }
 }
 window.addEventListener('resize', function(){
