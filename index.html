@@ -391,7 +391,7 @@ if('serviceWorker' in navigator){
       </select>
     </div>
   </div>
-    <div class="app-ver">v12</div>
+    <div class="app-ver">v13</div>
     </div>
 
   </main>
@@ -590,7 +590,7 @@ var MENOR_ES_MEJOR = false;
 var UNIDAD = '%';
 
 function $(id){ return document.getElementById(id); }
-function show(id){
+function show(id){ if(id!=='ranking' && typeof stopRankWatch==='function') stopRankWatch();
   var s=document.querySelectorAll('.screen');
   for(var i=0;i<s.length;i++) s[i].classList.remove('active');
   $(id).classList.add('active');
@@ -663,7 +663,7 @@ function repeatGame(){
   if(GIM.lastExecId && gimGetExercise(GIM.lastExecId)){ gimRunStart(GIM.lastExecId); }
   else { gimExecPick(); }
 }
-function runGame(){ show('game'); }
+function runGame(){ try{ warmRank('all'); }catch(e){} show('game'); }
 
 /* ---------- STUB: produce una puntuacion de prueba y va a Resultado ---------- */
 function generarStub(){
@@ -858,8 +858,41 @@ function showRanking(){
   updateRankSaveBtn();
   renderRank('a','a','a'); show('ranking');
 }
+/* Ranking (2026-09-30): lo que se ve es SIEMPRE la union de (a) el ranking
+   global -- en directo si hay red (onSnapshot: si otro deportista sube al
+   primer puesto se ve al momento, sin salir y volver a entrar), o la ultima
+   copia guardada si no la hay -- y (b) las marcas de ESTE dispositivo
+   (incluidas las aun pendientes de subir). Asi, sin conexion, se ve donde
+   queda tu marca dentro del ranking que ya conocias; al volver la red, la
+   cola de pendientes las sube y el global las incluye (se deduplican por
+   nombre+fecha). */
+var rankUnsub=null;
+function stopRankWatch(){ if(rankUnsub){ try{ rankUnsub(); }catch(e){} rankUnsub=null; } }
+function mergeRank(globalRows,localRows){
+  var out=[], seen={};
+  (globalRows||[]).concat(localRows||[]).forEach(function(r){
+    var k=(r.name||'')+'|'+r.ts;
+    if(!seen[k]){ seen[k]=1; out.push(r); }
+  });
+  return out;
+}
+function rankCacheKey(){ return 'rds_gimnasia_rankcache_'+Array.prototype.join.call(arguments,'_'); }
+function loadRankCache(k){ try{ return JSON.parse(localStorage.getItem(k)||'null'); }catch(e){ return null; } }
+function saveRankCache(k,rows){
+  try{ localStorage.setItem(k, JSON.stringify(rows)); localStorage.setItem(k+'_ts', String(Date.now())); }catch(e){}
+}
+/* Precarga: al empezar un ejercicio con red, se guarda el ranking de ESA
+   combinacion (1 consulta, como mucho cada 30 min) para verlo luego sin
+   conexion. */
+function warmRank(a,b,c){
+  if(!window.fbLoad || !navigator.onLine) return;
+  var rcKey=rankCacheKey(a,b,c), t=0;
+  try{ t=+localStorage.getItem(rcKey+'_ts')||0; }catch(e){}
+  if(Date.now()-t < 30*60*1000) return;
+  window.fbLoad(a,b,c).then(function(rows){ if(rows){ saveRankCache(rcKey, rows); } }).catch(function(){});
+}
 function renderRank(v1,v2,v3){
-  var key=lbKey(v1,v2,v3); S.rankKey=key;
+  var key=lbKey(v1,v2,v3); S.rankKey=key; stopRankWatch();
   var el=$('rkList'); if(!el) return;
   var latest=null;
   if(S.saved===false && isFinite(S.resAvg) && lbKey(S.s1,S.s2,S.s3)===key){
@@ -868,15 +901,19 @@ function renderRank(v1,v2,v3){
     latest=S.lastRec;
   }
   var lbLocal=loadLb(key);
-  sortLb(lbLocal);
-  renderRankList(lbLocal, el, latest);
-  if(window.fbLoad){
-    window.fbLoad(v1,v2,v3).then(function(rows){
-      if(rows && S.rankKey===key){
-        sortLb(rows);
-        renderRankList(rows, el, latest);
-      }
-    }).catch(function(){});
+  var rcKey=rankCacheKey('all');
+  function draw(raw){
+    var rows=mergeRank(raw,lbLocal);
+    sortLb(rows);
+    renderRankList(rows, el, latest);
+  }
+  draw(loadRankCache(rcKey)||[]);
+  if(window.fbWatch){
+    rankUnsub=window.fbWatch(function(rows){
+      if(S.rankKey!==key) return;
+      saveRankCache(rcKey, rows);
+      draw(rows);
+    });
   }
 }
 
@@ -1484,7 +1521,7 @@ function gimRenderMovementBars(R){
 </script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 const firebaseConfig = {
   apiKey: "AIzaSyBbEgbWddPt_rhPM24bL_Nacp7TAlh1biM",
   authDomain: "rds-reaction-test.firebaseapp.com",
@@ -1510,6 +1547,17 @@ window.fbReady=!!db;
 window.fbSave=async function(rec){
   if(!db) return false;
   try{ await addDoc(collection(db,'scores_gimnasia'), rec); return true; }catch(e){ return false; }
+};
+window.fbWatch=function(cb){
+  if(!db) return null;
+  try{
+    const q=collection(db,'scores_gimnasia');
+    return onSnapshot(q, function(snap){
+      if(snap.metadata.fromCache) return;   // sin servidor no hay datos reales: no pisar la copia guardada
+      const out=[]; snap.forEach(function(d){ out.push(d.data()); });
+      cb(out);
+    }, function(){});
+  }catch(e){ return null; }
 };
 window.fbLoad=async function(s1,s2,s3){
   if(!db) return null;
