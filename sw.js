@@ -1,5 +1,5 @@
 /* Gimnasia RDS - Service Worker */
-var CACHE = 'gimnasia-v17';
+var CACHE = 'gimnasia-v18';
 var ASSETS = [
   './',
   './index.html',
